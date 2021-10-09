@@ -3,19 +3,29 @@ html, body {
     width: 100%;
 }
 #home {
-    background: url(background.jpg) no-repeat center center fixed;
+    /* background: url(background.jpg) no-repeat center center fixed; */
     display: table;
     height: 100%;
     position: relative;
     width: 100%;
     background-size: cover;
+	color: white;
+
+}
+#projects {
+	display: table;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+	color: white;
 
 }
 .landing-text {
     display: table-cell;
     text-align:center;
     vertical-align: middle;
-    color: white;
+    color: black;
 }
 
 .landing-text h1 {
