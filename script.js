@@ -1,9 +1,10 @@
+
 var MOUSE_INFLUENCE = 5,
     GRAVITY_X = 0,
     GRAVITY_Y = 0,
     MOUSE_REPEL = false,
-    GROUPS = [50, 50, 50],
-    GROUP_COLOURS = ['rgba(97,160,232'];
+    GROUPS = [100, 50, 50],
+    GROUP_COLOURS = ['rgba(126, 220, 225'];
 
 window.requestAnimFrame =
     window.requestAnimationFrame ||
