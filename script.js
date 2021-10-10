@@ -17,7 +17,7 @@ window.requestAnimFrame =
 
 var fluid = function () {
 
-    var ctx, width, height, num_x, num_y, particles, grid, meta_ctx, threshold = 220, play = false, spacing = 45, radius = 30, limit = radius * 0.66, textures, num_particles;
+    var ctx, width, height, num_x, num_y, particles, grid, meta_ctx, threshold = 220, play = false, spacing = 45, radius = 60, limit = radius * 0.66, textures, num_particles;
 
     var mouse = {
         down: false,
@@ -50,24 +50,18 @@ var fluid = function () {
         while (i--) particles[i].second_process();
 
         process_image();
-
+        ctx.font="100px Arial";
+        ctx.fillStyle = "white";
+        ctx.textAlign = "center";
+        ctx.fillText("Shawn Sun", width / 2, height / 2);
+        ctx.font="50px Arial";
+        ctx.fillText("The sky is never the limit", width / 2, height / 2 + 100);
         if (mouse.down) {
 
             ctx.canvas.style.cursor = 'none';
 
-            ctx.fillStyle = 'rgba(97, 160, 232, 0.05)';
-            ctx.beginPath();
-            ctx.arc(
-                mouse.x,
-                mouse.y,
-                radius * MOUSE_INFLUENCE,
-                0,
-                Math.PI * 2
-            );
-            ctx.closePath();
-            ctx.fill();
 
-            ctx.fillStyle = 'rgba(97, 160, 232, 0.05)';
+            ctx.fillStyle = 'rgba(126, 220, 225, 0.05)';
             ctx.beginPath();
             ctx.arc(
                 mouse.x,
@@ -208,6 +202,7 @@ var fluid = function () {
 
             var canvas = document.getElementById(canvas);
             ctx = canvas.getContext('2d');
+
             canvas.height = h || window.innerHeight;
             canvas.width = w || window.innerWidth;
             width = canvas.width;
@@ -296,6 +291,7 @@ var fluid = function () {
 
             play = true;
             run();
+
         },
 
         stop: function () {
@@ -306,9 +302,4 @@ var fluid = function () {
 
 }();
 
-fluid.init('c', 800, 376);
-
-document.getElementById('reset').onmousedown = function () {
-    fluid.stop();
-    setTimeout(function () { fluid.init('c', 800, 366) }, 100);
-}
+// fluid.init('c', 800, 376);

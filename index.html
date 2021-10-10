@@ -13,10 +13,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
-  <script>
-    $(document).ready(function(){ fluid.init('c', 800, 366); });
-    </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
@@ -36,33 +34,45 @@
     </div>
   </nav> -->
 
-  <!--<div id="home">
-    
+  <div id="home">
+
     <div class="landing-text">
-        <h1>Shawn Sun</h1>
-        <h3>The sky is never the limit</h3>
-        <a href="#" class="btn btn-default btn-ig">Get Started</a> 
-  </div> 
-  
-  </div> -->
-  
-  <canvas id="c"> </canvas>
- 
-    <button id="reset">new colours</button>
-    <div id="info">
-      <div id="top">
-        <a id="close" href="">close</a>
-      </div>
-      <p>
-        <br>
-        - Alter particles/groups with the GROUPS variable.<br><br>
-        - Customize colours with GROUP_COLOURS.<br><br>
-        - Use the mouse to move the fluid.<br><br>
-        - Click anywhere to make water.<br><br>
-        - Use one group for a more water-like effect.<br><br>
-      </p>
+      <h1>Shawn Sun</h1>
+      <h3>The sky is never the limit</h3>
+      <a href="#" class="btn btn-default btn-ig">Get Started</a>
     </div>
-    
+
+  </div> 
+  <div>
+    <canvas id="c"> </canvas>
+    <script>
+      // $(document).ready(function(){ resize() });
+      (function () {
+        var canvas = document.getElementById('c'),
+          context = canvas.getContext('2d');
+
+        // resize the canvas to fill browser window dynamically
+        window.addEventListener('resize', resizeCanvas, false);
+
+        function resizeCanvas() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+
+          /**
+           * Your drawings need to be inside this function otherwise they will be reset when 
+           * you resize the browser window and the canvas goes will be cleared.
+           */
+          $(document).ready(function () { fluid.init('c', canvas.width, canvas.height); });
+          
+
+        }
+        resizeCanvas();
+      })();
+
+    </script>
+  </div>
+
+
   <!-- <div id="projects">
     <h1>Projects</h1>
     <h3>This should appear</h3>
@@ -78,7 +88,7 @@
       </div>
 
     </div> -->
-  <footer class="container-fluid text-center">
+  <!-- <footer class="container-fluid text-center">
     <div class="row">
       <div class="col-sm-12">
         <h3>Contact/Connect</h3>
@@ -89,7 +99,7 @@
       </div>
     </div>
 
-  </footer>
+  </footer> -->
 
 </body>
 
