@@ -8,15 +8,15 @@ html {
 	overflow: hidden;
 }
 
-#home {
-	/* background: url(background.jpg) no-repeat center center fixed; */
+/* #home {
+	background: url(background.jpg) no-repeat center center fixed; 
 	display: table;
 	height: 100%;
 	position: relative;
 	width: 100%;
 	background-size: cover;
 	color: white;
-}
+} */
 
 #reset {
 	position: absolute;

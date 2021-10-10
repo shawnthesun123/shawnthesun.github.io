@@ -1,22 +1,22 @@
 var MOUSE_INFLUENCE = 5,
-    GRAVITY_X     = 0,
-    GRAVITY_Y     = 0,
-    MOUSE_REPEL   = false,
-    GROUPS        = [50,50,50],
+    GRAVITY_X = 0,
+    GRAVITY_Y = 0,
+    MOUSE_REPEL = false,
+    GROUPS = [50, 50, 50],
     GROUP_COLOURS = ['rgba(97,160,232'];
 
 window.requestAnimFrame =
-window.requestAnimationFrame       || 
-window.webkitRequestAnimationFrame || 
-window.mozRequestAnimationFrame    || 
-window.oRequestAnimationFrame      || 
-window.msRequestAnimationFrame     ||
-function( callback ){
-    window.setTimeout(callback, 1000 / 60);
-};
+    window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    function (callback) {
+        window.setTimeout(callback, 1000 / 60);
+    };
 
-var fluid = function() {
-    
+var fluid = function () {
+
     var ctx, width, height, num_x, num_y, particles, grid, meta_ctx, threshold = 220, play = false, spacing = 45, radius = 30, limit = radius * 0.66, textures, num_particles;
 
     var mouse = {
@@ -25,7 +25,7 @@ var fluid = function() {
         y: 0
     };
 
-    var process_image = function() {
+    var process_image = function () {
         var imageData = meta_ctx.getImageData(0, 0, width, height),
             pix = imageData.data;
 
@@ -42,16 +42,16 @@ var fluid = function() {
         meta_ctx.clearRect(0, 0, width, height);
 
         for (var i = 0, l = num_x * num_y; i < l; i++) grid[i].length = 0;
-        
+
 
         var i = num_particles;
-        while(i--) particles[i].first_process();
+        while (i--) particles[i].first_process();
         i = num_particles;
-        while(i--) particles[i].second_process();
+        while (i--) particles[i].second_process();
 
         process_image();
 
-        if(mouse.down) {
+        if (mouse.down) {
 
             ctx.canvas.style.cursor = 'none';
 
@@ -63,7 +63,7 @@ var fluid = function() {
                 radius * MOUSE_INFLUENCE,
                 0,
                 Math.PI * 2
-                );
+            );
             ctx.closePath();
             ctx.fill();
 
@@ -72,20 +72,20 @@ var fluid = function() {
             ctx.arc(
                 mouse.x,
                 mouse.y,
-                (radius * MOUSE_INFLUENCE)/3,
+                (radius * MOUSE_INFLUENCE) / 3,
                 0,
                 Math.PI * 2
-                );
+            );
             ctx.closePath();
             ctx.fill();
         } else ctx.canvas.style.cursor = 'default';
 
         //console.log(new Date().getTime() - time);
 
-        if(play)
-        requestAnimFrame(run);
+        if (play)
+            requestAnimFrame(run);
     };
-    
+
     var Particle = function (type, x, y) {
         this.type = type;
         this.x = x;
@@ -95,9 +95,9 @@ var fluid = function() {
         this.vx = 0;
         this.vy = 0;
     };
-    
+
     Particle.prototype.first_process = function () {
-        
+
         var g = grid[Math.round(this.y / spacing) * num_x + Math.round(this.x / spacing)];
 
         if (g) g.close[g.length++] = this;
@@ -124,7 +124,7 @@ var fluid = function() {
         this.x += this.vx;
         this.y += this.vy;
     };
-        
+
     Particle.prototype.second_process = function () {
 
         var force = 0,
@@ -184,54 +184,54 @@ var fluid = function() {
 
         this.draw();
     };
-            
+
     Particle.prototype.draw = function () {
 
         var size = radius * 2;
 
         meta_ctx.drawImage(
-        textures[this.type],
-        this.x - radius,
-        this.y - radius,
-        size,
-        size);
+            textures[this.type],
+            this.x - radius,
+            this.y - radius,
+            size,
+            size);
     };
-        
+
     return {
-    
-        init: function(canvas, w, h) {
+
+        init: function (canvas, w, h) {
 
             particles = [];
-            grid      = [];
+            grid = [];
             close = [];
-            textures  = [];
-        
-            var canvas 	  = document.getElementById(canvas);
-			ctx   	      = canvas.getContext('2d');
-			canvas.height = h || window.innerHeight;
-			canvas.width  = w || window.innerWidth;
-			width         = canvas.width;
-			height        = canvas.height;
+            textures = [];
 
-            var meta_canvas    = document.createElement("canvas");
-            meta_canvas.width  = width;
+            var canvas = document.getElementById(canvas);
+            ctx = canvas.getContext('2d');
+            canvas.height = h || window.innerHeight;
+            canvas.width = w || window.innerWidth;
+            width = canvas.width;
+            height = canvas.height;
+
+            var meta_canvas = document.createElement("canvas");
+            meta_canvas.width = width;
             meta_canvas.height = height;
-            meta_ctx           = meta_canvas.getContext("2d");
+            meta_ctx = meta_canvas.getContext("2d");
 
-            for(var i = 0; i < GROUPS.length; i++) {
+            for (var i = 0; i < GROUPS.length; i++) {
 
                 var colour;
 
-                if(GROUP_COLOURS[i]) {
+                if (GROUP_COLOURS[i]) {
                     colour = GROUP_COLOURS[i];
                 } else {
 
                     colour =
-                    'hsla(' + Math.round(Math.random() * 360) + ', 80%, 60%';
+                        'hsla(' + Math.round(Math.random() * 360) + ', 80%, 60%';
                 }
 
                 textures[i] = document.createElement("canvas");
-                textures[i].width  = radius * 2;
+                textures[i].width = radius * 2;
                 textures[i].height = radius * 2;
                 var nctx = textures[i].getContext("2d");
 
@@ -242,7 +242,7 @@ var fluid = function() {
                     radius,
                     radius,
                     radius
-                    );
+                );
 
                 grad.addColorStop(0, colour + ',1)');
                 grad.addColorStop(1, colour + ',0)');
@@ -252,43 +252,43 @@ var fluid = function() {
                 nctx.closePath();
                 nctx.fill();
             }
-            
-            canvas.onmousedown = function(e) {
-				mouse.down = true;
-				return false;
-			};
-            
-			canvas.onmouseup = function(e) {
-				mouse.down = false;
-				return false;
-			};
 
-			canvas.onmousemove = function(e) {
-    var rect = canvas.getBoundingClientRect();
-  mouse.x = e.clientX - rect.left;
-  mouse.y = e.clientY - rect.top;
-				return false;
-			};
-            
+            canvas.onmousedown = function (e) {
+                mouse.down = true;
+                return false;
+            };
+
+            canvas.onmouseup = function (e) {
+                mouse.down = false;
+                return false;
+            };
+
+            canvas.onmousemove = function (e) {
+                var rect = canvas.getBoundingClientRect();
+                mouse.x = e.clientX - rect.left;
+                mouse.y = e.clientY - rect.top;
+                return false;
+            };
+
             num_x = Math.round(width / spacing) + 1;
             num_y = Math.round(height / spacing) + 1;
-            
+
             for (var i = 0; i < num_x * num_y; i++) {
                 grid[i] = {
                     length: 0,
                     close: []
                 }
             }
-            
-            for (var i = 0; i < GROUPS.length; i++ ) {
-                for (var k = 0; k < GROUPS[i]; k++ ) {
+
+            for (var i = 0; i < GROUPS.length; i++) {
+                for (var k = 0; k < GROUPS[i]; k++) {
                     particles.push(
                         new Particle(
                             i,
                             radius + Math.random() * (width - radius * 2),
                             radius + Math.random() * (height - radius * 2)
-                            )
-                        );
+                        )
+                    );
                 }
             }
 
@@ -298,17 +298,17 @@ var fluid = function() {
             run();
         },
 
-        stop: function() {
+        stop: function () {
             play = false;
         }
-    
+
     };
-    
+
 }();
 
 fluid.init('c', 800, 376);
 
-document.getElementById('reset').onmousedown = function() {
+document.getElementById('reset').onmousedown = function () {
     fluid.stop();
-    setTimeout(function(){fluid.init('c', 800, 366)}, 100);
+    setTimeout(function () { fluid.init('c', 800, 366) }, 100);
 }
